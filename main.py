@@ -4,22 +4,20 @@ from pydantic import BaseModel
 app = FastAPI()
 
 
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: bool | None = None
+people = {
+    1: {
+        "name": 'George',
+        "age": "24",
+        
+    }
+}
+
 
 
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
+def index():
+    return {"name": "Data test"}
 
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
-
-
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
+@app.get("/get-people/{people_id}")
+def get_people(people_id: int):
+    return people[people_id]
